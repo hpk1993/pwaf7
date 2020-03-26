@@ -1,0 +1,54 @@
+/* Your app custom styles here */
+
+@font-face {
+    font-family: 'iranSans';
+    src: url('../fonts/IranSans/iranSans.eot');
+    src: url('../fonts/IranSans/iranSans.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/IranSans/iranSans.woff') format('woff'),
+        url('../fonts/IranSans/iranSans.ttf') format('truetype'),
+        url('../fonts/IranSans/iranSans.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'iranSansLight';
+    src: url('../fonts/IranSans/iranSansLight.eot');
+    src: url('../fonts/IranSans/iranSansLight.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/IranSans/iranSansLight.woff') format('woff'),
+        url('../fonts/IranSans/iransansmobile_bold.ttf') format('truetype'),
+        url('../fonts/IranSans/iranSansLight.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'iranSans_Medium';
+    src: url('../fonts/IranSans/IRANSansWeb_Medium.eot');
+    src: url('../fonts/IranSans/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/IranSans/IRANSansWeb_Medium.woff') format('woff'),
+        url('../fonts/IranSans/IRANSansWeb_Medium.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'iranSansLight_Fnum';
+    src: url('../fonts/IranSans/iranSansLight.eot');
+    src: url('../fonts/IranSans/iranSansLight.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/IranSans/iranSansLight.woff') format('woff'),
+        url('../fonts/IranSans/iransansmobile(fanum).ttf') format('truetype'),
+        url('../fonts/IranSans/iranSansLight.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    /* iranSansLight_Fnum */
+    /* iranSansLight */
+    font-family: iranSans !important;
+}
+
+.hidden {
+display: none;
+}

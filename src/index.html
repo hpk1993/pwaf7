@@ -1,0 +1,84 @@
+
+<html dir="rtl" style="overscroll-behavior-y: contain;">
+<head>
+  <meta charset="utf-8">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+
+  <meta name="theme-color" content="#007aaa">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title></title>
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#007aaa">
+  <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+
+  <link rel="apple-touch-icon" href="static/icons/apple-touch-icon.png">
+  <link rel="icon" href="static/icons/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <!-- <link rel="manifest" href="/manifest.webmanifest"> -->
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover"
+/>
+<meta
+http-equiv="Content-Security-Policy"
+content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:"
+/>
+
+<link rel="icon" sizes="192x192" href="static/icons/192x192.png">
+<link rel="icon" sizes="128x128" href="static/icons/128x128.png">
+<link rel="apple-touch-icon" sizes="128x128" href="static/icons/128x128.png">
+<link rel="apple-touch-icon-precomposed" sizes="128x128" href="static/icons/128x128.png">
+
+  <!-- built styles file will be auto injected -->
+</head>
+<body  >
+  <div id="app"></div>
+
+  <!-- built script files will be auto injected -->
+
+
+  <!-- #region Dont Refreshing pull Browser   -->
+    <script type="text/javascript">
+      (() => {
+      async function simulateRefreshAction() {
+        const sleep = (timeout) => new Promise(resolve => setTimeout(resolve, timeout));
+        const transitionEnd = function(propertyName, node) {
+          return new Promise(resolve => {
+            function callback(e) {
+              e.stopPropagation();
+              if (e.propertyName === propertyName) {
+                node.removeEventListener('transitionend', callback);
+                resolve(e);
+              }
+            }
+            node.addEventListener('transitionend', callback);
+          });
+        }
+
+      }
+      let _startY = 0;
+      const inbox = document.querySelector('#app');
+      inbox.addEventListener('touchstart', e => {
+        _startY = e.touches[0].pageY;
+      }, {passive: true});
+      inbox.addEventListener('touchmove', e => {
+        const y = e.touches[0].pageY;
+        // Activate custom pull-to-refresh effects when at the top fo the container
+        // and user is scrolling up.
+        if (document.scrollingElement.scrollTop === 0 && y > _startY &&
+            !document.body.classList.contains('refreshing')) {
+          simulateRefreshAction();
+        }
+      }, {passive: true});
+
+      })();
+  </script>
+ <!-- #End region Dont Refreshing pull Browser-->
+
+
+</body>
+</html>
