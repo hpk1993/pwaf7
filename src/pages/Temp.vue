@@ -1,5 +1,5 @@
 <template>
-  <f7-page name="form">
+  <f7-page>
     <f7-navbar :title="title_page" back-link="بازگشت"></f7-navbar>
 
   </f7-page>
