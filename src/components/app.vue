@@ -1,5 +1,5 @@
 <template>
-<f7-app :params="f7params"  :push-state="true" >
+<f7-app :params="f7params"  >
 
   <!-- Left panel with cover effect-->
   <f7-panel left cover theme-dark >
@@ -22,79 +22,11 @@
     </f7-view>
   </f7-panel>
 
-
-
-
   <!-- Your main view, should have "view-main" class -->
-  <f7-view main class="safe-areas" url="/" :push-state="true" v-if="is_installed()==true"></f7-view>
-  <!-- <f7-view main class="safe-areas" url="/"  :push-state="true"></f7-view> -->
 
-  <!-- نصب خودکار برنامه -->
-  <f7-view style="overflow: scroll;" init :push-state="true"   v-if="is_installed()==false ">
-    <f7-page >
-
-      <f7-block-title  large  v-show="Is_ios()" class="text-color-primary padding ">مراحل نصب</f7-block-title>
-      <f7-block-title  xsmall v-show="Is_ios()"  class="text-color-green ">نسخه {{Version_app}} </f7-block-title>
-      <img src="static/install_banners/install_ios.png" class="center" alt=""  v-show="Is_ios()" style="left: 10%;position: absolute;width: 80%;right: 10%;margin-top: 25%;">
-
-
-      <f7-block-title  v-show="!Is_ios()"  large class="text-color-primary padding">مراحل نصب</f7-block-title>
-      <f7-block-title  v-show="!Is_ios()"  xsmall class="text-color-green ">نسخه {{Version_app}} </f7-block-title>
-      <f7-block-title  v-show="!Is_ios()"  class="text-color-primary "> روش نصب در مرورگر گوگل کروم</f7-block-title>
-      <f7-block inset v-show="!Is_ios()">
-        <p>
-            1. بر روی دکمه نصب کلیک کنید
-        </p>
-        <p>
-            2. و بعد از نمایش کادر آیکون برنامه گزینه اضافه کردن به صفحه یا Add را بزنید
-        </p>
-        <p>
-            نکته : اگر در کروم دکمه نصب عمل نکرد صفحه را مجدد بارگذاری کنید (Refresh)
-        </p>
-
-          <f7-block>
-            <f7-button  fill raised  @click.prevent="click_install()" v-if="is_installed()==false">نصب</f7-button>
-          </f7-block>
-        </f7-block>
-        <br >
-        <f7-block-title v-show="!Is_ios()">دیگر روش های نصب</f7-block-title>
-        <f7-list accordion-list v-show="!Is_ios()">
-
-          <f7-list-item class="text-color-primary" accordion-item title="در مرورگر سامسونگ">
-            <f7-accordion-content>
-              <f7-block>
-                    <img src="static/install_banners/samsung-install.jpg" alt="" style="max-width:100%;">
-              </f7-block>
-            </f7-accordion-content>
-          </f7-list-item>
-
-
-          <f7-list-item class="text-color-primary" accordion-item title="در مرورگر فایرفاکس">
-            <f7-accordion-content>
-              <f7-block>
-                    <img src="static/install_banners/fireFox-banner.png" alt="" style="max-width:100%;">
-              </f7-block>
-            </f7-accordion-content>
-          </f7-list-item>
-
-          <f7-list-item class="text-color-primary" accordion-item title="در سایر مرورگرها">
-            <f7-accordion-content class="text-color-gray">
-              <f7-block>
-                  <p>
-                      1. منو تنظیمات مرورگر را باز کنید
-                  </p>
-                  <p>
-                      2. بر روی گزینه اضافه کردن به صفحه اصلی یا Add to home Screen کلیک کنید
-                </p>
-              </f7-block>
-            </f7-accordion-content>
-          </f7-list-item>
-
-        </f7-list>
-
-    </f7-page>
-  </f7-view>
-<!-- ******************************* -->
+<div >
+    <f7-view  main  class="safe-areas" url="/" ></f7-view>
+</div>
 
 
 
@@ -104,7 +36,7 @@
       <f7-page>
         <f7-navbar title="Popup">
           <f7-nav-right>
-            <f7-link popup-close>Close</f7-link>
+            <f7-link popup-close>بستن</f7-link>
           </f7-nav-right>
         </f7-navbar>
         <f7-block>
@@ -115,9 +47,9 @@
   </f7-popup>
 
   <f7-login-screen id="my-login-screen">
-    <f7-view>
-      <f7-page login-screen>
-        <f7-login-screen-title>Login</f7-login-screen-title>
+    <f7-view >
+      <f7-page login-screen >
+        <f7-login-screen-title>ورود</f7-login-screen-title>
         <f7-list form>
           <f7-list-input
             type="text"
@@ -155,13 +87,17 @@
     data() {
       return {
         installPromptEvent: undefined,
-        Version_app: '1.5',
+        Version_app: "1.0.0",
+
 
         // Framework7 Parameters
         f7params: {
-          name: 'First App', // App name
+          name: " App name", // App name
+          id: 'hpksoftware.pwa.f7pwa',
+          version: this.Version_app,
           theme: 'auto', // Automatic theme detection
-          pushState: true,
+          is_login: false,
+
 
           // App routes
           routes: routes,
@@ -169,11 +105,44 @@
           serviceWorker: {
             path: '/service-worker.js',
           },
+
+          view: {
+            // pushState: true,
+            // pushStateRoot: '',
+            // pushStateOnLoad: false,
+            //pushStateSeparator: '#!',
+          },
+
+
+        statusbar: {
+          iosOverlaysWebview: true,
         },
+
+        on: {
+          init: function () {
+            console.log('App initialized');
+            // Framework7.request.setup({
+            //     headers: {
+            //       'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            //       'Accept': 'application/json',
+            //       'Content-Type' : 'application/json'
+            //         }
+            //   });
+          },
+        },
+
+        // dialog: {
+        //   title: '',
+        // },
+
+
+
+        }, // End App Parameter
 
         // Login screen data
         username: '',
         password: '',
+
       }
     },
 
@@ -217,11 +186,11 @@ methods: {
       let os_name= ''; //window.navigator.userAgent
       for (var prop in obj)
         {
-          if (!obj.hasOwnProperty(prop)) continue;
-          if (obj[prop] == true && prop !== 'webview' && prop !=='webView' && prop !== 'statusbar' && prop !== 'pixelRatio') {
+          // if (!obj.hasOwnProperty(prop)) continue;
+          // if (obj[prop] == true && prop !== 'webview' && prop !=='webView' && prop !== 'statusbar' && prop !== 'pixelRatio') {
             // console.log(prop)
-            os_name += prop + " | "
-          }
+            os_name += prop + " = " + obj[prop] + "<br>";
+          // }
         }
         return os_name;
   },
@@ -294,22 +263,13 @@ methods: {
     //#region
       const panel_left = app.panel.get('.panel-left');
       const panel_right = app.panel.get('.panel-right');
-
-      console.log('///////////////'  , app.panel );
-
       if ($$('.modal-in').length <= 0 && (panel_left==undefined || panel_left.opened==false )  && (panel_right==undefined || panel_right.opened==false ) ) {
-        console.log('///////  if  ////////'  );
-                // for (let index = 0; index < 5; index++) {
-                  // setTimeout(() => {
-                    // window.history.back();
-                    window.history.back();
-                  // }, 200);
-
-              // }
-
+        // console.log('***********pushState' , app.views.main.router);
+        window.history.back();
+        app.views.main.router.back();
+        return false;
       } else{
-                console.log('pushState');
-                window.history.pushState({}   , '');
+          window.history.pushState({}   , '');
       }
 
 
@@ -318,8 +278,6 @@ methods: {
         console.log( 'panel_left.opened' , panel_left.opened);
         console.log( 'panel_right.opened' , panel_right.opened);
 
-          // panel_left.close(true);
-          // panel_right.close(true);
           app.panel.close();
           return false;
       }
@@ -333,8 +291,17 @@ methods: {
 
       }
     //#endregion
-},
+  },
 
+  IS_SamsungBrowser() {
+    let str = navigator.appVersion ;
+    let n = str.search("SamsungBrowser");
+    if (n > 0) {
+      return true;
+    } else{
+      return false;
+    };
+  }
 
 }, //methods
 
@@ -342,17 +309,35 @@ methods: {
       this.$f7ready((f7) => {
         // Call F7 APIs here
         this.initialize_install();
+
       });
+    // app.utils.colorThemeCSSProperties('#f00');
+
+    const app=this.$f7;
+    console.log("$f7: " , app	)
+    console.log("Connected: " , app.online	)
+    app.statusbar.show();
+
+
+    app.on('connection', function (isOnline) {
+    console.log('isOnline app: ' , isOnline);
+  });
+
+  // app.request.json('https://app.asa-andish.com/api/ostadkar/list-suggestion?user_id=668', function (data) {
+  //   console.log('request data : ' , data);
+  // } );
+
 
 
     // **************handle Back Button mobile & browser**************
-      if(window.history.state==null){
-          window.history.pushState(  { isBackPage: false } , '');
-          window.history.pushState(  { isBackPage2: false } , '');
-      }
-      else{
-          window.history.pushState(null,'')
-      }
+      // if(window.history.state==null){
+      //     window.history.pushState(  { isBackPage: false } , '');
+      //     // window.history.pushState(  { isBackPage2: false } , '');
+
+      // }
+      // else{
+      //     window.history.pushState(null,'')
+      // }
       window.addEventListener('popstate', this.handleBackButton);
     // **************END handle Back Button mobile & browser*****************
 

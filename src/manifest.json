@@ -1,13 +1,13 @@
 {
   "prefer_related_applications": false,
-  "name": "Myapp",
-  "short_name": "First app",
-  "description": "f7pwa.ir",
+  "name": "F7pwa1",
+  "short_name": "Short Description F7pwa1 ",
+  "description": "F7pwa1.ir",
   "lang": "en-US",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#007aaa",
-  "theme_color": "#007aaa",
+  "background_color": "#fff",
+  "theme_color": "#00c0be",
   "icons": [
     {
       "src": "static/icons/128x128.png",

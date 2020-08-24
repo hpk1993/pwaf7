@@ -166,6 +166,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env),
       'process.env.TARGET': JSON.stringify(target),
+      // maximumFileSizeToCacheInBytes: 4194304,
     }),
     new VueLoaderPlugin(),
     ...(env === 'production' ? [

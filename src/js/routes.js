@@ -1,96 +1,85 @@
 
+import InstallPage from '../pages/install.vue';
 import HomePage from '../pages/home.vue';
-import AboutPage from '../pages/about.vue';
-import FormPage from '../pages/form.vue';
+import Temp from '../pages/Temp.vue';
 
-
-import DynamicRoutePage from '../pages/dynamic-route.vue';
-import RequestAndLoad from '../pages/request-and-load.vue';
 import NotFoundPage from '../pages/404.vue';
 
+
+function checkAuth(to, from, resolve, reject) {
+  var router = this;
+  var app = router.app;
+  console.log('***************checkAuth*****************' )
+
+
+    // if (  localStorage.getItem("token") ) {
+      resolve();
+      app.params.is_login=true;
+    // } else {
+    //     reject();
+    //     app.params.is_login=false;
+    //     router.navigate('/login/');
+    // }
+
+
+
+}
+
 var routes = [
+
+  {
+    path: '/install/',
+    name: 'install',
+    component: InstallPage,
+    options:{
+      animate: true,
+      transition: 'f7-circle',
+    },
+
+  },
+
+  {
+    path:  '/Temp/',
+    name: 'Temp',
+    component: Temp,
+    options:{
+      animate: true,
+      transition: 'f7-circle',
+    },
+    // detailRoutes:[
+    //   {
+    //     path:  '/Temp/id/:id/',
+    //     name: 'Temp',
+    //     component: Temp,
+    //   },
+    // ],
+  },
+
+
+
+
   {
     path: '/',
     component: HomePage,
     options:{
-      transition: 'f7-cover-v',
+      animate:true,
+      transition: 'f7-circle',
 
-    }
-  },
-  {
-    path: '/about/',
-    component: AboutPage,
-    options:{
-      transition: 'f7-cover-v',
-    }
-  },
-  {
-    path: '/form/',
-    component: FormPage,
-    options: {
-      transition: 'f7-flip',
+      ignoreCache:true,
+      reloadCurrent:true,
     },
+    beforeEnter: checkAuth,
   },
 
 
-  {
-    path: '/dynamic-route/blog/:blogId/post/:postId/',
-    component: DynamicRoutePage,
-  },
-  {
-    path: '/request-and-load/user/:userId/',
-    async: function (routeTo, routeFrom, resolve, reject) {
-      // Router instance
-      var router = this;
 
-      // App instance
-      var app = router.app;
-
-      // Show Preloader
-      app.preloader.show();
-
-      // User ID from request
-      var userId = routeTo.params.userId;
-
-      // Simulate Ajax Request
-      setTimeout(function () {
-        // We got user data from request
-        var user = {
-          firstName: 'Vladimir',
-          lastName: 'Kharlampidi',
-          about: 'Hello, i am creator of Framework7! Hope you like it!',
-          links: [
-            {
-              title: 'Framework7 Website',
-              url: 'http://framework7.io',
-            },
-            {
-              title: 'Framework7 Forum',
-              url: 'http://forum.framework7.io',
-            },
-          ]
-        };
-        // Hide Preloader
-        app.preloader.hide();
-
-        // Resolve route to load page
-        resolve(
-          {
-            component: RequestAndLoad,
-          },
-          {
-            context: {
-              user: user,
-            }
-          }
-        );
-      }, 1000);
-    },
-  },
   {
     path: '(.*)',
     component: NotFoundPage,
+    beforeEnter: checkAuth,
   },
+
+
 ];
 
 export default routes;

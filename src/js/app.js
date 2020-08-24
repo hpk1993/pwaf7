@@ -1,6 +1,6 @@
 // Import Vue
 import Vue from 'vue';
-
+import Dom7 from 'dom7';
 // Import Framework7
 import Framework7 from 'f7rtl/framework7-lite.esm.bundle.js';
 
@@ -76,12 +76,6 @@ if (Framework7.device.desktop == true && Framework7.device.android == false && F
 }
 };
 
-Vue.prototype.$checkConnection = function() {
-return navigator.onLine ? true : false;
-};
-
-
-
 Vue.prototype.$click_install= function()  {
   const self = this;
     if (self.installPromptEvent) {
@@ -109,8 +103,12 @@ new Vue({
 
   data() {
     return {
-      myPushid: '123456789',
+      myPushid: '1234567890',
       installPromptEvent: undefined ,
+      site_api: 'https://siteUrl.ir/',
+      list_all_cat: [],
+      isAndroid: false,
+      Uid: 0,
     }
   },
 
